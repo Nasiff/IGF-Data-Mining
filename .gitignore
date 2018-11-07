@@ -1,5 +1,6 @@
-# Ignore the Transcript folders themselves
+# Ignore the Transcript text and zip folders
 *.txt
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
