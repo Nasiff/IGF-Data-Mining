@@ -97,7 +97,7 @@ for element in final_list:
     
     finalized.append(result)
 
-# rename the files appropriately by their names as appears on the link
+# rename the files appropriately by their names as appears on the link.
     file_num = file_num + 1
     old_file = FILE_DIR + 'file_' + str(file_num) + '.txt'
     new_file = FILE_DIR + str(result) + '.txt'
