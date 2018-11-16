@@ -27,7 +27,7 @@ print (links)
 
 # identify the links of interest by examining the link_list
 begin = "/cms/categoryblog/121-preparatory-process-42721/1375-opening-ceremony-and-opening-session"
-end = "/cms/categoryblog/121-preparatory-process-42721/1474-workshop-70-dynamic-coalition-on-gender-integrating-womens-rights-at-the-igf-space"
+end = "/cms/categoryblog/121-preparatory-process-42721/1446-high-level-leaders-meeting-session-3"
 begin_index = link_list.index(begin)
 end_index = link_list.index(end)
 
@@ -67,39 +67,10 @@ for url in final_links:
     text = str(text.encode("ascii", "ignore"))
 
 # write the final product to a text file: only works for the last link in the list
-    #fob = open('/Users/oliviadziwak/Documents/Lab SC/2017/file_' + str(filenumber) + '.txt', 'w')
-    fob = open(FILE_DIR + 'file_' + str(filenumber) + '.txt', 'w')
+    name = url.split("/")[-1]
+    name = name[0:130]
+    fob = open(FILE_DIR + name + '.txt', 'w')
     fob.write(text)
     fob.close()
     print('Extracted and wrote transcript ' + str(filenumber) + ' to text file')
-
-# iterate over the elements in the revised_list (with hyperlink extensions) and clean the links
-# by removing the "/" 
-final_list = []
-number = 0
-for element in revised_list:
-    link = revised_list[number]
-    split = link.split("/")
-    final_list.append(split)
-    number = number + 1
-
-# after creating a list of lists, take only the 4th element and append it to a finalized list
-finalized = []
-file_num = 0
-same_file = 0
-for element in final_list:
-    result = element[4]
-    finalized.append(result)
-
-# rename the files appropriately by their names as appears on the link.
-    file_num = file_num + 1
-    old_file = FILE_DIR + 'file_' + str(file_num) + '.txt'
-    new_file = FILE_DIR + str(result) + '.txt'
-    try:
-        os.rename(old_file, new_file)
-    except FileExistsError:
-        same_file = same_file + 1
-        os.rename(old_file, FILE_DIR + str(result) + str(same_file) + '.txt')
-    except:
-        continue
-    
+print("Number of urls/files: " + str(filenumber))

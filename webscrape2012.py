@@ -67,35 +67,10 @@ for url in final_links:
     text = str(text.encode("ascii", "ignore"))
 
 # write the final product to a text file: only works for the last link in the list
-    #fob = open('/Users/oliviadziwak/Documents/Lab SC/2017/file_' + str(filenumber) + '.txt', 'w')
-    fob = open(FILE_DIR + 'file_' + str(filenumber) + '.txt', 'w')
+    name = url.split("/")[-1]
+    fob = open(FILE_DIR + name + '.txt', 'w')
     fob.write(text)
     fob.close()
     print('Extracted and wrote transcript ' + str(filenumber) + ' to text file')
-
-# iterate over the elements in the revised_list (with hyperlink extensions) and clean the links
-# by removing the "/" 
-final_list = []
-number = 0
-for element in revised_list:
-    link = revised_list[number]
-    split = link.split("/")
-    final_list.append(split)
-    number = number + 1
-
-# after creating a list of lists, take only the 4th element and append it to a finalized list
-finalized = []
-file_num = 0
-for element in final_list:
-    try:
-        result = element[8]
-    except:
-        result = "opening-ceremony"
-    # finalized.append(result)
-
-# rename the files appropriately by their names as appears on the link.
-    file_num = file_num + 1
-    old_file = FILE_DIR + 'file_' + str(file_num) + '.txt'
-    new_file = FILE_DIR + str(result) + '.txt'
-    os.rename(old_file, new_file)
+print("Number of urls/files: " + str(filenumber))
     
