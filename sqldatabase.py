@@ -7,11 +7,11 @@ from bs4 import BeautifulSoup
 # The file directory to put the database in
 FILE_DIR = '/Users/User/Desktop/Mine/Workspace/vs_workspace/IGF_Mining/'
 # The global variable that says the script which year of transcripts to add to the database
-TRANSCRIPT_YEAR = 2017
+TRANSCRIPT_YEAR = 2012
 # The global indexes that needs to be changed to reflect the current transcript year
 # Lets the script know where the transcript only links start and end.
-BEGIN_URL = '/multilingual/content/igf-2017-day-0-salle-15-the-12th-annual-symposium-of-the-global-internet-governance-0'
-END_URL = '/multilingual/content/igf-2017-day-4-room-xxvii-ws245-datafication-social-justice-what-challenges-for-internet'
+BEGIN_URL = 'http://www.intgovforum.org/cms/component/content/article/1249'
+END_URL = 'http://www.intgovforum.org/cms/component/content/article/114-preparatory-process/1260-igf-2012-closing-ceremony-'
 
 # Connect to the database and initialize the cursor
 connection = sqlite3.connect(FILE_DIR + "TranscriptsIGF.db")
@@ -29,7 +29,7 @@ cursor.execute (sql_command)
 connection.commit()
 
 # send a GET request, pose as a Mozilla Firefox agent
-url = 'http://www.intgovforum.org/multilingual/igf-2017-transcripts'
+url = 'http://www.intgovforum.org/multilingual/content/igf-2012'
 headers={'User-Agent': 'Mozilla/5.0'}
 r = requests.get(url, headers=headers)
 print (url)
@@ -43,7 +43,7 @@ hrefs = soup.find_all('a')
 
 # get all the links from the main page into a list
 url_list = []
-url_first_half = 'http://www.intgovforum.org'
+url_first_half = '' #http://www.intgovforum.org
 for link in hrefs: 
 	url_second_half = link.get('href')
 	url_list.append(url_first_half + str(url_second_half))
@@ -60,11 +60,36 @@ print ("Starting to add everything to the database.")
 
 # Gather all the appropriate column information from the transcript file directory to add to the database
 list_of_files = os.listdir(FILE_DIR + "/Transcripts_" + str(TRANSCRIPT_YEAR))
+
+
+# TEST
+# index = 0
+# for f in list_of_files:
+#     list_of_files[index] = "http://www.intgovforum.org/cms/categoryblog/121-preparatory-process-42721/" + f
+#     list_of_files[index] = list_of_files[index][:-4]
+#     index = index + 1
+
+# index = 0
+# for url in url_list:
+#     url_list[index] = url.split("/")[-1]
+#     index = index + 1
+    
+print ("Number of transcripts in folder " + str(len(list_of_files)))
+print ("Number of transcript urls " + str(len(url_list)))
+
+# print (list_of_files[0])
+# print (url_list[0])
+# print (set(url_list).difference(set(list_of_files)))
+
+# url_list.sort()
+# for u,f in zip(url_list, list_of_files):
+#     print (u + "| XXXXXXXXX |" + f)
+
 # Index for the url_list
 index = 0
 for file in list_of_files:
     # Add the name of the file to be used as the name_of_panel later when it gets added to the database
-    panel_name = file
+    panel_name = file[5:]
     # Find the file in the directory so that it can be read
     input = FILE_DIR + "/Transcripts_" + str(TRANSCRIPT_YEAR) + "/" + file
     file_content = open(input, "r").read().replace("\\", "") # Replace all the backslashes in the file
