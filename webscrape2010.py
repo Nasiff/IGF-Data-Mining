@@ -58,7 +58,8 @@ for item in revised_list:
     concat = url + item
     final_links.append(concat)
 
-# access the links in final_links list
+# access the links in final_links 
+final_links.remove("http://www.intgovforum.org/cms/../index.php/component/chronocontact/?chronoformname=WSProposals2010View&wspid=61")
 filenumber = 0 
 for url in final_links:
     filenumber = filenumber + 1
@@ -82,17 +83,9 @@ for url in final_links:
     text = str(text.encode("ascii", "ignore"))
 
 # write the final product to a text file: only works for the last link in the list
-    #fob = open('/Users/oliviadziwak/Documents/Lab SC/2017/file_' + str(filenumber) + '.txt', 'w')
-    fob = open(FILE_DIR + 'file_' + str(filenumber) + '.txt', 'w')
+    name = url.split("/")[-1]
+    fob = open(FILE_DIR + name + '.txt', 'w')
     fob.write(text)
     fob.close()
     print('Extracted and wrote transcript ' + str(filenumber) + ' to text file')
-
-# rename the files appropriately by their names as appears on the link
-for i in range(0, 117):
-    old_file = FILE_DIR + 'file_' + str(i + 1) + '.txt'
-    new_file = FILE_DIR + str(text_list[i]) + '.txt'
-    try:
-        os.rename(old_file, new_file)
-    except:
-        pass
+print("Number of urls/files: " + str(filenumber))
