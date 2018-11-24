@@ -67,15 +67,12 @@ for url in final_links:
     print (url)
     html = r.text
     soup = BeautifulSoup(html, 'html.parser')
-
-
-# extract the JavaScript from the transcript and only leave the text
+    # extract the JavaScript from the transcript and only leave the text
     for script in soup(["script", "style"]):
         script.extract()   
 
     text = soup.body.get_text()
 
-# further clean the text by deleting blank spaces between lines and encode the 
 # the final text in utf-8 format, in case there is any unknown letters
     lines = (line.strip() for line in text.splitlines())
     chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
@@ -83,8 +80,7 @@ for url in final_links:
     text = str(text.encode("ascii", "ignore"))
 
 # write the final product to a text file: only works for the last link in the list
-    name = url.split("/")[-1]
-    fob = open(FILE_DIR + name + '.txt', 'w')
+    fob = open(FILE_DIR + str(filenumber).zfill(3) + " " + text_list[filenumber - 1] + '.txt', 'w')
     fob.write(text)
     fob.close()
     print('Extracted and wrote transcript ' + str(filenumber) + ' to text file')
