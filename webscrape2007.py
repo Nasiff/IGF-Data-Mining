@@ -40,7 +40,6 @@ print(revised_list)
 file_num = 0
 
 for element in revised_list:
-    file_num = file_num + 1
     headers = {'User-Agent' : 'Mozilla/5.0'}
     print("Establishing connection to: " + element)
     print(headers)
@@ -49,19 +48,11 @@ for element in revised_list:
     # print("*******************************************************")
     # print(transcript_text)
     try:
-        fob = open(FILE_DIR + 'file_' + str(file_num) + '.txt', 'w')
+        name = revised_list[file_num]
+        file_num = file_num + 1
+        fob = open(FILE_DIR + str(file_num).zfill(2) + " " + name.split("/")[-1] + '.txt', 'w')
         fob.write(transcript_text)
         fob.close()
         print('Extracted and wrote transcript ' + str(file_num) + ' to text file')
     except UnicodeEncodeError:
         pass
-
-file_num0 = 0
-split_list = revised_list.split("/")
-
-for item in split_list:
-    file_num0 = file_num0 + 1
-    if file_num0 != 4:
-        old_file = FILE_DIR + 'file_' + str(file_num0) + '.txt'
-        new_file = FILE_DIR + str(item[5]) + '.txt'
-        os.rename(old_file, new_file)
