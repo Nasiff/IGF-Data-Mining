@@ -39,8 +39,8 @@ revised_list = link_list[begin_index:end_index+1]
 
 # after creating a list of lists, take only the 4th element and append it to a finalized list
 print(revised_list)
-file_num = 0
 
+file_num = 0
 for element in revised_list:
     file_num = file_num + 1
     headers = {'User-Agent' : 'Mozilla/5.0'}
@@ -54,7 +54,7 @@ for element in revised_list:
     file_name = unquote(file_name)
 
     # try:
-    fob = open(FILE_DIR + str(file_name), 'w')
+    fob = open(FILE_DIR + str(file_num).zfill(2) + " " + str(file_name), 'w')
     fob.write(transcript_text)
     fob.close()
     print('Extracted and wrote transcript ' + str(file_name) + ' to text file')
