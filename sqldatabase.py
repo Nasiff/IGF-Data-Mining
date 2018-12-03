@@ -5,9 +5,9 @@ import requests
 from bs4 import BeautifulSoup
 
 # The file directory to put the database in
-FILE_DIR = '/Users/User/Desktop/Mine/Workspace/vs_workspace/IGF_Mining/'
+FILE_DIR = '/Users/nasif/Desktop/Mine/Workspace/vs_workspace/IGF-Data-Mining/'
 # The global variable that says the script which year of transcripts to add to the database
-TRANSCRIPT_YEAR = 2006
+TRANSCRIPT_YEAR = 2012
 # The global indexes that needs to be changed to reflect the current transcript year
 # Lets the script know where the transcript only links start and end.
 BEGIN_URL = 'http://www.intgovforum.org/cms/IGF-OpeningSession-301006.txt'
@@ -72,7 +72,7 @@ list_of_files = os.listdir(FILE_DIR + "/Transcripts_" + str(TRANSCRIPT_YEAR))
 # url_list.remove("http://www.intgovforum.org/cms/dynamic-coalitions/694-dc10")
 
 print ("Number of transcripts in folder " + str(len(list_of_files)))
-print ("Number of transcript urls " + str(len(url_list)))
+# print ("Number of transcript urls " + str(len(url_list)))
 
 
 # url_list.sort(key = lambda x : int(x.split("/")[-1][0:3]))
@@ -97,7 +97,7 @@ print ("Number of transcript urls " + str(len(url_list)))
 index = 0
 for file in list_of_files:
     # Add the name of the file to be used as the name_of_panel later when it gets added to the database
-    panel_name = file[7:]
+    panel_name = file
     # Find the file in the directory so that it can be read
     input = FILE_DIR + "/Transcripts_" + str(TRANSCRIPT_YEAR) + "/" + file
     file_content = open(input, "r").read().replace("\\", "") # Replace all the backslashes in the file
