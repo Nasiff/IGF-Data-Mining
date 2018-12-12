@@ -1,7 +1,7 @@
 import os
 
-for i in range(2015, 2016, 1):
-    FILE_DIR = '/Users/User/Desktop/Mine/Workspace/vs_workspace/IGF_Mining/Transcripts_Zip/Transcripts_Chunked/Transcripts_' + str(i)
+for i in range(2006, 2018, 1):
+    FILE_DIR = '/Users/nasif/Desktop/Mine/Workspace/vs_workspace/IGF-Data-Mining/Transcripts_Chunked/Transcripts_' + str(i)
     list_of_files_in_dir = os.listdir(FILE_DIR)
     # print (list_of_files_in_dir)
     print("Splitting the year " + str(i) + " into chunks")
@@ -16,7 +16,7 @@ for i in range(2015, 2016, 1):
             # print(file + " " + str(total_number_of_words))
             for j in range(0, total_number_of_words, number_of_words_per_chunk):
                 chunk_counter = chunk_counter + 1
-                file_chunk = open(FILE_DIR + "/" + str(i) + "_chunk_alt" + str(chunk_counter) + ".txt", "w")
+                file_chunk = open(FILE_DIR + "/" + str(i) + "_Chunk_" + str(chunk_counter).zfill(4) + ".txt", "w")
                 file_chunk.write(" ".join(text_list[j:j+1001]))
                 file_chunk.close()
             os.remove(input)
